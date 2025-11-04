@@ -1,4 +1,17 @@
 {
     "SceneID": "WebAR_Trial",
-    "Objects": []
+    "Objects": [
+        {
+            "name": "PlacePrefab",
+            "ContentID": "Main asset",
+            "PlaneOnSurface": true,
+            "AllowRotation": true,
+            "AllowScaling": true,
+            "InitialScale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    ]
 }
