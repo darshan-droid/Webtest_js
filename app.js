@@ -184,8 +184,8 @@ function render(timestamp, frame) {
     renderer.render(scene, camera);
 }
 
-function onUserPlace() {
-    console.log("[WebAR] onUserPlace fired");
+function onUserPlace(event) {
+    console.log("[WebAR] onUserPlace fired",event);
 
     if (!surfaceReady) {
         console.warn("[WebAR] surfaceReady=false (no plane yet)");
