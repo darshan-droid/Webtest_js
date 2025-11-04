@@ -90,8 +90,30 @@ async function initAR() {
         (err) => console.error("[WebAR] Error loading GLB:", err)
     );
 
-    window.addEventListener('touchend', onUserPlace, { passive: true });
-    window.addEventListener('click', onUserPlace);
+    //window.addEventListener('touchend', onUserPlace, { passive: true });
+    //window.addEventListener('click', onUserPlace);
+
+
+    arButton.addEventListener('click', async () => {
+        debugLog("[WebARButton] Requesting AR session...");
+
+        try {
+            const session = await navigator.xr.requestSession('immersive-ar', {
+                requiredFeatures: ['hit-test', 'anchors']
+            });
+
+            debugLog("[WebARButton] AR session started");
+
+            renderer.xr.setSession(session);
+            arButton.style.display = 'none';
+
+            session.addEventListener('select', onUserPlace);
+
+        } catch (err) {
+            console.error(err);
+            debugLog("[WebARButton] Failed to start session: " + err.message);
+        }
+    });
 
     renderer.setAnimationLoop(render);
 }
