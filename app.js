@@ -10,7 +10,6 @@ let referenceSpace = null;
 let gltfRoot = null;
 let placedObject = null;
 let surfaceReady = false;
-
 function debugLog(msg) {
     console.log(msg);
 
@@ -49,7 +48,7 @@ async function initAR() {
 
         try {
             const session = await navigator.xr.requestSession('immersive-ar', {
-                requiredFeatures: ['hit-test']
+                requiredFeatures: ['hit-test', 'anchors']
             });
 
             debugLog("[WebARButton] AR session started ");
@@ -177,7 +176,7 @@ function onUserPlace() {
 
     if (!placedObject) {
         placedObject = gltfRoot.clone(true);
-
+        placedObject.visible = true;
         placedObject.scale.set(1, 1, 1);
 
         scene.add(placedObject);
