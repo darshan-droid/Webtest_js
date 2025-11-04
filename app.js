@@ -37,6 +37,7 @@ async function initAR() {
     renderer.setClearAlpha(0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.xr.enabled = true;
+    renderer.xr.setReferenceSpaceType('local');
     document.body.appendChild(renderer.domElement);
 
     const arButton = document.createElement('button');
