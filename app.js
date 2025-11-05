@@ -9,7 +9,7 @@ let referenceSpace = null;
 
 let gltfRoot = null;
 let placedObject = null;
-let surfaceReady = false;
+let surfaceReady = true;
 function debugLog(msg) {
     console.log(msg);
 
