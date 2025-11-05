@@ -20,6 +20,13 @@ function debugLog(msg) {
     box.scrollTop = box.scrollHeight;
 }
 
+function SetupXR() {
+    const controller = renderer.xr.getController(0);
+    controller.addEventListener('select', onUserPlace);
+    scene.add(controller);
+    console.log("Controller's started");
+}
+
 async function initAR() {
     console.log("[WebAR] initAR start");
 
@@ -56,6 +63,7 @@ async function initAR() {
             debugLog("[WebARButton] AR session started ");
 
             renderer.xr.setSession(session);
+            SetupXR();
 
             // hide button when session active
             arButton.style.display = 'none';
@@ -92,8 +100,9 @@ async function initAR() {
         (err) => console.error("[WebAR] Error loading GLB:", err)
     );
 
-    window.addEventListener('touchend', onUserPlace, { passive: true });
-    window.addEventListener('click', onUserPlace);
+    window.addEventListener('click', (e) => {
+        if (!renderer.xr.isPresenting) onUserPlace(e);
+    });
 
     renderer.setAnimationLoop(render);
 }
