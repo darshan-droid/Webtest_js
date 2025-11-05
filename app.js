@@ -82,7 +82,7 @@ async function initAR() {
 
     const loader = new GLTFLoader();
     loader.load(
-        './scene.glb',
+        './scene.gltf',
         (gltf) => {
             console.log("[WebAR] GLB loaded");
             gltfRoot = gltf.scene;
