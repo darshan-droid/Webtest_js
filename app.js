@@ -167,10 +167,10 @@ function render(timestamp, frame) {
 function onUserPlace(event) {
     console.log("[WebAR] onUserPlace fired",event);
 
-    if (!surfaceReady) {
-        console.warn("[WebAR] surfaceReady=false (no plane yet)");
-        return;
-    }
+    //if (!surfaceReady) {
+    //    console.warn("[WebAR] surfaceReady=false (no plane yet)");
+    //    return;
+    //}
     if (!gltfRoot) {
         console.warn("[WebAR] gltfRoot not loaded yet");
         return;
