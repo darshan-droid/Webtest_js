@@ -2,15 +2,15 @@
     "SceneID": "WebAR_Trial",
     "Objects": [
         {
-            "name": "PlacePrefab",
+            "name": "RayMascot_low 1",
             "ContentID": "Main asset",
             "PlaneOnSurface": true,
             "AllowRotation": true,
             "AllowScaling": true,
             "InitialScale": [
-                0.0,
-                0.0,
-                0.0
+                1.0,
+                1.0,
+                1.0
             ]
         }
     ]

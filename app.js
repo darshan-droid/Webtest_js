@@ -80,17 +80,17 @@ async function initAR() {
     reticle.visible = false;
     scene.add(reticle);
 
-    const loader = new GLTFLoader();
-    loader.load(
-        './scene.glb',
-        (gltf) => {
-            console.log("[WebAR] GLB loaded");
-            gltfRoot = gltf.scene;
-            gltfRoot.visible = false;
-        },
-        undefined,
-        (err) => console.error("[WebAR] Error loading GLB:", err)
-    );
+    //const loader = new GLTFLoader();
+    //loader.load(
+    //    './scene.glb',
+    //    (gltf) => {
+    //        console.log("[WebAR] GLB loaded");
+    //        gltfRoot = gltf.scene;
+    //        gltfRoot.visible = false;
+    //    },
+    //    undefined,
+    //    (err) => console.error("[WebAR] Error loading GLB:", err)
+    //);
 
     window.addEventListener('touchend', onUserPlace, { passive: true });
     window.addEventListener('click', onUserPlace);
