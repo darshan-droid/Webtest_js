@@ -1,6 +1,7 @@
 ﻿import * as THREE from './three.module.js';
 import { GLTFLoader } from './GLTFLoader.js';
 import { WebXRButton } from './webxr-button.js';
+import { ExportEventToUnity } from './UnityBridge.js';
 
 let scene, camera, renderer;
 let reticle;
@@ -9,7 +10,10 @@ let referenceSpace = null;
 
 let gltfRoot = null;
 let placedObject = null;
-let surfaceReady = true;
+
+//callbacks for unity
+const UnityCallQueue = [];
+let unityReady = false;
 function debugLog(msg) {
     console.log(msg);
 
@@ -23,6 +27,9 @@ function debugLog(msg) {
 function SetupXR() {
     const controller = renderer.xr.getController(0);
     controller.addEventListener('select', onUserPlace);
+    controller.addEventListener('selectEvent', () => {
+        sendThreejsInput(1);
+    });
     scene.add(controller);
     console.log("Controller's started");
 }
@@ -201,6 +208,32 @@ function onUserPlace(event) {
     placedObject.position.y += 0.02;
 
     console.log("[WebAR] placedObject @", placedObject.position);
+}
+
+/**
+ * This below is for Unity and three js integration
+ */
+window.UnityLoadedandReady = function () {
+    console.log("Unity is Ready");
+
+    UnityCallQueue.forEach(call => {
+        if (typeof window[call[0]] === 'function') {
+            window[call[0]](call[1]);
+        }
+    });
+    UnityCallQueue.length = 0;
+};
+function sendThreejsInput(button) {
+    const data = "Button" + button + "Clicked";
+
+    if (unityReady && typeof ExportEventToUnity === 'function') {
+        ExportEventToUnity(data);
+        console.log("app.js communicates with UnityBridge");
+    }
+    else {
+        console.warn('App doesnt communicate ${data}');
+    }
+    
 }
 
 initAR();
