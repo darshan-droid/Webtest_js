@@ -87,48 +87,26 @@
 </head>
 
 <body>
-    <div id="unity-container" class="unity-desktop">
-        <canvas id="unity-canvas" style="width: 100vw; height: 100vh;"></canvas>
-    </div>
 
-    <div id="uiOverlay">
-        </div>
-    
-    <script type="module" src="./app.js"></script>
-    
-    <script src="Build/UnityLoader.js"></script> 
-    
-    <script>
-        // Define the configuration object for the Unity build
-        var config = {
-            dataUrl: "Build/YourUnityBuild.data",
-            frameworkUrl: "Build/YourUnityBuild.framework.js",
-            codeUrl: "Build/YourUnityBuild.wasm",
-            // For WebAR/Three.js integration, Unity's renderer MUST be transparent:
-            matchWebGLToCanvasSize: true, 
-            webglContextAttributes: { 
-                preserveDrawingBuffer: false, 
-                alpha: true // CRITICAL for running behind Three.js/WebAR
-            },
-        };
+  <!-- UI overlay (title and debug console) -->
+  <div id="uiOverlay">
+    <div id="sceneTitle">Welcome to LIVR Singapore_AR</div>
+    <div id="debugLog"></div>
+  </div>
 
-        var canvas = document.querySelector("#unity-canvas");
-        
-        // Load the Unity instance
-        createUnityInstance(canvas, config, (progress) => {
-            // Optional: Handle loading progress here
-        }).then((unityInstance) => {
-            // --- SUCCESS: UNITY IS LOADED AND READY! ---
-            window.unityInstance = unityInstance; // Export globally for the bridge
-            
-            // Call the function in your Three.js script to signal readiness
-            if (typeof window.UnityLoadedAndReady === 'function') {
-                window.UnityLoadedAndReady();
-            }
+  <!-- We do NOT place the canvas manually.
+       THREE.WebGLRenderer will inject <canvas> for us in app.js. -->
 
-        }).catch((message) => {
-            console.error("Unity Loading Failed: " + message);
-        });
-    </script>
+  <!-- We load app.js as a module so it can import three.module.js, GLTFLoader.js, etc.
+       app.js will:
+       - create renderer with alpha
+       - append renderer.domElement (canvas)
+       - create / append the AR button
+       - request WebXR session
+       - load scene.glb + scene.meta.json
+       - run hit test, place model
+  -->
+  <script type="module" src="./app.js"></script>
+
 </body>
 </html>
