@@ -246,9 +246,9 @@ async function UnityLoader() {
 
     const buildUrl = "./Build"; // folder with Unity files
     const config = {
-        dataUrl: buildUrl + "/UnityProject.data",
+        dataUrl: buildUrl + "/build.data.unityweb",
         frameworkUrl: buildUrl + "/UnityProject.framework.js",
-        codeUrl: buildUrl + "/build.wasm",
+        codeUrl: buildUrl + "/build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "YourCompany",
         productName: "YourApp",
