@@ -258,6 +258,8 @@ async function UnityLoader() {
     const LoaderModule = await import(buildUrl + "/UnityProject.loader.js");
 
     const createUnityInstance = LoaderModule.default;
+    console.log("InspectModule:", LoaderModule);
+    console.log("InspectCreateUI", createUnityInstance);
     const unityInstance = await createUnityInstance.createUnityInstance(unityCanvas, config, (progress) => {
         debugLog(`[Unity] Loading progress: ${Math.round(progress * 100)}%`);
     }).then((unityInstance) => {
