@@ -108,9 +108,9 @@ async function initAR() {
     //    (err) => console.error("[WebAR] Error loading GLB:", err)
     //);
 
-    window.addEventListener('click', (e) => {
-        if (!renderer.xr.isPresenting) onUserPlace(e);
-    });
+    //window.addEventListener('click', (e) => {
+    //    if (!renderer.xr.isPresenting) onUserPlace(e);
+    //});
 
     renderer.setAnimationLoop(render);
 }
@@ -167,12 +167,12 @@ function render(timestamp, frame) {
                 hit.transform.position.z
             );
 
-            if (gltfRoot && !gltfRoot.visible) {
-                gltfRoot.visible = true;
-                gltfRoot.position.copy(reticle.position);
-                gltfRoot.scale.set(1, 1, 1);
-                console.log("[WebAR] placed GLB at", reticle.position);
-            }
+            //if (gltfRoot && !gltfRoot.visible) {
+            //    gltfRoot.visible = true;
+            //    gltfRoot.position.copy(reticle.position);
+            //    gltfRoot.scale.set(1, 1, 1);
+            //    console.log("[WebAR] placed GLB at", reticle.position);
+            //}
         } else {
             reticle.visible = false;
         }
@@ -181,35 +181,35 @@ function render(timestamp, frame) {
     renderer.render(scene, camera);
 }
 
-function onUserPlace(event) {
-    console.log("[WebAR] onUserPlace fired",event);
+//function onUserPlace(event) {
+//    console.log("[WebAR] onUserPlace fired",event);
 
-    //if (!surfaceReady) {
-    //    console.warn("[WebAR] surfaceReady=false (no plane yet)");
-    //    return;
-    //}
-    if (!gltfRoot) {
-        console.warn("[WebAR] gltfRoot not loaded yet");
-        return;
-    }
+//    //if (!surfaceReady) {
+//    //    console.warn("[WebAR] surfaceReady=false (no plane yet)");
+//    //    return;
+//    //}
+//    //if (!gltfRoot) {
+//    //    console.warn("[WebAR] gltfRoot not loaded yet");
+//    //    return;
+//    //}
 
-    if (!placedObject) {
-        placedObject = gltfRoot.clone(true);
-        placedObject.visible = true;
-        placedObject.scale.set(1, 1, 1);
+//    if (!placedObject) {
+//        placedObject = gltfRoot.clone(true);
+//        placedObject.visible = true;
+//        placedObject.scale.set(1, 1, 1);
 
-        scene.add(placedObject);
-        console.log("[WebAR] placed first object");
-    } else {
-        console.log("[WebAR] moving existing object");
-    }
+//        scene.add(placedObject);
+//        console.log("[WebAR] placed first object");
+//    } else {
+//        console.log("[WebAR] moving existing object");
+//    }
 
-    placedObject.position.copy(reticle.position);
-    placedObject.quaternion.copy(reticle.quaternion);
-    //placedObject.position.y += 0.02;
+//    placedObject.position.copy(reticle.position);
+//    placedObject.quaternion.copy(reticle.quaternion);
+//    //placedObject.position.y += 0.02;
 
-    console.log("[WebAR] placedObject @", placedObject.position);
-}
+//    console.log("[WebAR] placedObject @", placedObject.position);
+//}
 
 /**
  * This below is for Unity and three js integration
