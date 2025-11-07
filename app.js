@@ -248,7 +248,7 @@ async function UnityLoader() {
     const config = {
         dataUrl: buildUrl + "/UnityProject.data",
         frameworkUrl: buildUrl + "/UnityProject.framework.js",
-        codeUrl: buildUrl + "/UnityProject.wasm",
+        codeUrl: buildUrl + "/build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "YourCompany",
         productName: "YourApp",
