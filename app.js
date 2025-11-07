@@ -26,7 +26,7 @@ function debugLog(msg) {
 
 function SetupXR() {
     const controller = renderer.xr.getController(0);
-    controller.addEventListener('select', onUserPlace);
+   // controller.addEventListener('select', onUserPlace);
     controller.addEventListener('selectEvent', () => {
         sendThreejsInput(1);
     });
