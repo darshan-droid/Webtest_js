@@ -71,6 +71,7 @@ async function initAR() {
 
             renderer.xr.setSession(session);
             SetupXR();
+            await UnityLoader();
 
             // hide button when session active
             arButton.style.display = 'none';
@@ -95,17 +96,17 @@ async function initAR() {
     reticle.visible = false;
     scene.add(reticle);
 
-    const loader = new GLTFLoader();
-    loader.load(
-        './scene.glb',
-        (gltf) => {
-            console.log("[WebAR] GLB loaded");
-            gltfRoot = gltf.scene;
-            gltfRoot.visible = false;
-        },
-        undefined,
-        (err) => console.error("[WebAR] Error loading GLB:", err)
-    );
+    //const loader = new GLTFLoader();
+    //loader.load(
+    //    './scene.glb',
+    //    (gltf) => {
+    //        console.log("[WebAR] GLB loaded");
+    //        gltfRoot = gltf.scene;
+    //        gltfRoot.visible = false;
+    //    },
+    //    undefined,
+    //    (err) => console.error("[WebAR] Error loading GLB:", err)
+    //);
 
     window.addEventListener('click', (e) => {
         if (!renderer.xr.isPresenting) onUserPlace(e);
@@ -205,7 +206,7 @@ function onUserPlace(event) {
 
     placedObject.position.copy(reticle.position);
     placedObject.quaternion.copy(reticle.quaternion);
-    placedObject.position.y += 0.02;
+    //placedObject.position.y += 0.02;
 
     console.log("[WebAR] placedObject @", placedObject.position);
 }
@@ -234,6 +235,36 @@ function sendThreejsInput(button) {
         console.warn('App doesnt communicate ${data}');
     }
     
+}
+
+async function UnityLoader() {
+    const unityCanvas = document.getElementById('unity-canvas');
+    unityCanvas.style.display = 'block'; // make visible if needed
+
+    const buildUrl = "./Build"; // folder with Unity files
+    const config = {
+        dataUrl: buildUrl + "/build.data",
+        frameworkUrl: buildUrl + "/build.framework.js",
+        codeUrl: buildUrl + "/build.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "YourCompany",
+        productName: "YourApp",
+        productVersion: "1.0",
+        showBanner: (msg, type) => console.log("[Unity] " + msg)
+    };
+
+    const { createUnityInstance } = await import(buildUrl + "/build.loader.js");
+
+    createUnityInstance(unityCanvas, config, (progress) => {
+        debugLog(`[Unity] Loading progress: ${Math.round(progress * 100)}%`);
+    }).then((unityInstance) => {
+        debugLog("[Unity] Scene loaded!");
+        window.unityInstance = unityInstance;
+        unityReady = true;
+        if (typeof window.UnityLoadedandReady === 'function') window.UnityLoadedandReady();
+    }).catch((err) => {
+        console.error("[UnityBridge] Failed to load Unity scene:", err);
+    });
 }
 
 initAR();
