@@ -243,9 +243,9 @@ async function UnityLoader() {
 
     const buildUrl = "./Build"; // folder with Unity files
     const config = {
-        dataUrl: buildUrl + "/build.data",
-        frameworkUrl: buildUrl + "/build.framework.js",
-        codeUrl: buildUrl + "/build.wasm",
+        dataUrl: buildUrl + "/UnityProject.data",
+        frameworkUrl: buildUrl + "/UnityProject.framework.js",
+        codeUrl: buildUrl + "/UnityProject.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "YourCompany",
         productName: "YourApp",
@@ -253,7 +253,7 @@ async function UnityLoader() {
         showBanner: (msg, type) => console.log("[Unity] " + msg)
     };
 
-    const { createUnityInstance } = await import(buildUrl + "/build.loader.js");
+    const { createUnityInstance } = await import(buildUrl + "/UnityProject.loader.js");
 
     createUnityInstance(unityCanvas, config, (progress) => {
         debugLog(`[Unity] Loading progress: ${Math.round(progress * 100)}%`);
