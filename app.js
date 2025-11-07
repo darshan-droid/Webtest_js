@@ -238,7 +238,7 @@ function sendThreejsInput(button) {
 }
 
 //global declaration for unity instance
-const { createUnityInstance } = await import("./Build/UnityProject.loader.js");
+//const { createUnityInstance } = await import("./Build/UnityProject.loader.js");
 async function UnityLoader() {
     const unityCanvas = document.getElementById('unity-canvas');
     unityCanvas.style.display = 'block'; // make visible if needed
@@ -255,7 +255,7 @@ async function UnityLoader() {
         showBanner: (msg, type) => console.log("[Unity] " + msg)
     };
 
-    //const { createUnityInstance } = await import(buildUrl + "/UnityProject.loader.js");
+    const { createUnityInstance } = await import(buildUrl + "/UnityProject.loader.js");
     const unityInstance = await createUnityInstance(unityCanvas, config, (progress) => {
         debugLog(`[Unity] Loading progress: ${Math.round(progress * 100)}%`);
     }).then((unityInstance) => {
