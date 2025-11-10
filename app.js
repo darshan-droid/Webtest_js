@@ -1,6 +1,7 @@
 ﻿import * as THREE from './three.module.js';
 import * as WebGPU from './WebGPU.js';
 import { loadScene } from './Core/LivrSceneLoader.js';
+import { onTrigger } from './Core/TriggerSystem.js'
 import { GLTFLoader } from './GLTFLoader.js';
 import { WebXRButton } from './webxr-button.js';
 //import { ExportEventToUnity } from './UnityBridge.js';
@@ -73,7 +74,7 @@ async function initAR() {
             let sceneId = 'scene';
             renderer.xr.setSession(session);
             SetupXR();
-            //await UnityLoader();
+            await UnityLoader();
             await addSceneToApp(sceneId);
 
             // hide button when session active
@@ -83,6 +84,11 @@ async function initAR() {
             debugLog("[WebARButton] Failed to start session: " + err.message);
         }
     });
+
+    onTrigger.addEventListener('click', async () => {
+
+        debugLog("[On Trigger] trying to do something");
+    })
 
     document.body.appendChild(arButton);
 
@@ -298,44 +304,12 @@ async function addSceneToApp(sceneId) {
         scene.add(glb);
         placedObject = glb;
 
-        addSceneLabelToReticle(sceneId);
-
         debugLog(`[WebAR] Scene '${sceneId}' added to AR view.`);
     } catch (err) {
         console.error(`[WebAR] Failed to load scene '${sceneId}':`, err);
         debugLog(`[WebAR] Error loading scene '${sceneId}': ${err.message}`);
     }
 }
-
-function addSceneLabelToReticle(sceneId) {
-    // Remove any previous label
-    if (reticle.sceneLabel) {
-        reticle.remove(reticle.sceneLabel);
-        reticle.sceneLabel.material.map.dispose();
-        reticle.sceneLabel.material.dispose();
-    }
-
-    // Create a simple canvas-based text sprite
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 512;
-    canvas.height = 128;
-    ctx.fillStyle = 'rgba(255,255,255,0.9)';
-    ctx.font = '48px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(sceneId, canvas.width / 2, canvas.height / 2);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-    const sprite = new THREE.Sprite(material);
-    sprite.scale.set(0.3, 0.075, 1); // size of label
-    sprite.position.set(0, 0.15, 0); // slightly above reticle
-
-    reticle.add(sprite);
-    reticle.sceneLabel = sprite; // save reference
-}
-
 
 
 initAR();
