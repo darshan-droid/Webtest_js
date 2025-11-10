@@ -40,7 +40,7 @@ function SetupXR() {
 async function initAR() {
     console.log("[WebAR] initAR start");
 
-    const canvas = document.getElementById('ar-canvas');
+    const canvas = document.getElementById('ARCamera-canvas');
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true }); // alpha allows transparency
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
