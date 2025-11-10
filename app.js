@@ -85,11 +85,6 @@ async function initAR() {
         }
     });
 
-    onTrigger.addEventListener('click', async () => {
-
-        debugLog("[On Trigger] trying to do something");
-    })
-
     document.body.appendChild(arButton);
 
     const hemi = new THREE.HemisphereLight(0xffffff, 0x444466, 1.0);
