@@ -70,7 +70,7 @@ async function initAR() {
             });
 
             debugLog("[WebARButton] AR session started ");
-            let sceneId = 'scene.glb';
+            let sceneId = 'scene_01';
             renderer.xr.setSession(session);
             SetupXR();
             //await UnityLoader();
