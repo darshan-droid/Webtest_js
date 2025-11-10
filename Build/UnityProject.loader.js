@@ -250,7 +250,7 @@ export function createUnityInstance(t, n, l) {
             "NT 6.3": "8.1",
             "NT 10.0": "10"
         }[r] || r,
-            webgpuVersion = 0,
+            0,
             (h = document.createElement("canvas")) && (u = (m = h.getContext("webgl2")) ? 2 : 0,
                 m || (m = h && h.getContext("webgl")) && (u = 1),
                 m && (o = m.getExtension("WEBGL_debug_renderer_info") && m.getParameter(37446) || m.getParameter(7937)));
@@ -269,7 +269,7 @@ export function createUnityInstance(t, n, l) {
             gpu: o || "Unknown GPU",
             language: navigator.userLanguage || navigator.language,
             hasWebGL: u,
-            hasWebGPU: webgpuVersion,
+            hasWebGPU: 0,
             hasCursorLock: !!document.body.requestPointerLock,
             hasFullscreen: !!document.body.requestFullscreen || !!document.body.webkitRequestFullscreen,
             hasThreads: h,
