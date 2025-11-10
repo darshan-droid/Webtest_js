@@ -244,8 +244,8 @@ function sendThreejsInput(button) {
 //global declaration for unity instance
 //const { createUnityInstance } = await import("./Build/UnityProject.loader.js");
 async function UnityLoader() {
-    const unityCanvas = document.getElementById('unity-canvas');
-    unityCanvas.style.display = 'block'; // make visible if needed
+    //const unityCanvas = document.getElementById('unity-canvas');
+    //unityCanvas.style.display = 'block'; // make visible if needed
 
     const buildUrl = "./Build"; // folder with Unity files
     const config = {
