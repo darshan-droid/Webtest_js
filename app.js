@@ -54,7 +54,7 @@ async function initAR() {
         20
     );
 
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    //renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearAlpha(0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.xr.enabled = true;
