@@ -40,6 +40,11 @@ function SetupXR() {
 async function initAR() {
     console.log("[WebAR] initAR start");
 
+    const canvas = document.getElementById('ar-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true }); // alpha allows transparency
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(
@@ -245,8 +250,8 @@ function sendThreejsInput(button) {
 //const { createUnityInstance } = await import("./Build/UnityProject.loader.js");
 async function UnityLoader() {
     const unityCanvas = document.getElementById('unity-canvas');
-    unityCanvas.style.display = 'block'; // make visible if needed
-    unityCanvas.opacity = 0;
+    unityCanvas.style.display = 'none'; // make visible if needed
+   
 
     const buildUrl = "./Build"; // folder with Unity files
     const config = {

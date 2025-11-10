@@ -91,8 +91,17 @@
       display: none;
       background: transparent;
       z-index: 500;
-      pointer-events: none; /* allows AR taps through unless activated */
+      
     }
+	
+	ar-canvas {
+	  position: absolute;  /* Overlay on top */
+	  top: 0;
+	  left: 0;
+	  width: 100vw;
+	  height: 100vh;
+	  pointer-events: none; /* So clicks pass through to Unity if needed */
+	}
   </style>
 </head>
 
@@ -106,8 +115,9 @@
 
   <!-- Unity Canvas (will be shown when Unity loads in app.js) -->
   <canvas id="unity-canvas"></canvas> 
-
-  <script src="./Build/UnityProject.framework.js"></script>
+  <canvas id="ARCamera-canvas"></canvas>
+  
+  <!-- <script src="./Build/UnityProject.framework.js"></script> -->
   <!-- app.js handles:
        - THREE.js + WebXR setup
        - Creating AR button
