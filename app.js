@@ -40,11 +40,6 @@ function SetupXR() {
 async function initAR() {
     console.log("[WebAR] initAR start");
 
-    const canvas = document.getElementById('ARCamera-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true }); // alpha allows transparency
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(
@@ -54,7 +49,7 @@ async function initAR() {
         20
     );
 
-    //renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearAlpha(0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.xr.enabled = true;
