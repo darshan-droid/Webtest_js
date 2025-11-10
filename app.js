@@ -1,6 +1,6 @@
 ﻿import * as THREE from './three.module.js';
 import * as WebGPU from './WebGPU.js';
-import { loadScene } from '../Core/LivrSceneLoader.js';
+import { loadScene } from './Core/LivrSceneLoader.js';
 import { GLTFLoader } from './GLTFLoader.js';
 import { WebXRButton } from './webxr-button.js';
 //import { ExportEventToUnity } from './UnityBridge.js';
