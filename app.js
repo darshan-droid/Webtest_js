@@ -1,5 +1,6 @@
 ﻿import * as THREE from './three.module.js';
 import * as WebGPU from './WebGPU.js';
+import { loadScene } from '../Core/LivrSceneLoader.js';
 import { GLTFLoader } from './GLTFLoader.js';
 import { WebXRButton } from './webxr-button.js';
 //import { ExportEventToUnity } from './UnityBridge.js';
@@ -72,7 +73,8 @@ async function initAR() {
 
             renderer.xr.setSession(session);
             SetupXR();
-            await UnityLoader();
+            //await UnityLoader();
+            await addSceneToApp(sceneId);
 
             // hide button when session active
             arButton.style.display = 'none';
@@ -272,6 +274,37 @@ async function UnityLoader() {
         console.error("[UnityBridge] Failed to load Unity scene:", err);
     });
 }
+
+async function addSceneToApp(sceneId) {
+    try {
+        debugLog(`[WebAR] Loading scene: ${sceneId}`);
+
+        // loadScene comes from your imported module
+        const { meta, glb } = await loadScene({ scene }, sceneId);
+
+        // optional: if a reticle is visible, place the scene there
+        if (reticle && reticle.visible) {
+            glb.position.copy(reticle.position);
+            glb.quaternion.copy(reticle.quaternion);
+        } else {
+            glb.position.set(0, 0, -0.5); // default in front of camera
+        }
+
+        // optional scaling from metadata
+        if (meta?.scale) {
+            glb.scale.setScalar(meta.scale);
+        }
+
+        scene.add(glb);
+        placedObject = glb;
+
+        debugLog(`[WebAR] Scene '${sceneId}' added to AR view.`);
+    } catch (err) {
+        console.error(`[WebAR] Failed to load scene '${sceneId}':`, err);
+        debugLog(`[WebAR] Error loading scene '${sceneId}': ${err.message}`);
+    }
+}
+
 
 initAR();
 
