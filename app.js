@@ -246,6 +246,7 @@ function sendThreejsInput(button) {
 async function UnityLoader() {
     const unityCanvas = document.getElementById('unity-canvas');
     unityCanvas.style.display = 'block'; // make visible if needed
+    unityCanvas.opacity = 0;
 
     const buildUrl = "./Build"; // folder with Unity files
     const config = {
